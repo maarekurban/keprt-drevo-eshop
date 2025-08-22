@@ -39,9 +39,9 @@ export default function FilterSidebar({
   })
 
   const toggleSection = (section: string) => {
-    setExpandedSections(prev => ({
+    setExpandedSections((prev: any) => ({
       ...prev,
-      [section]: !prev[section as keyof typeof prev]
+      [section]: !prev[section]
     }))
   }
 
@@ -304,7 +304,7 @@ export default function FilterSidebar({
                             max="5000"
                             step="100"
                             value={selectedFilters.priceRange[0]}
-                            onChange={(e) => setSelectedFilters(prev => ({
+                            onChange={(e) => setSelectedFilters((prev: any) => ({
                               ...prev,
                               priceRange: [parseInt(e.target.value), prev.priceRange[1]]
                             }))}
@@ -316,7 +316,7 @@ export default function FilterSidebar({
                             max="5000"
                             step="100"
                             value={selectedFilters.priceRange[1]}
-                            onChange={(e) => setSelectedFilters(prev => ({
+                            onChange={(e) => setSelectedFilters((prev: any) => ({
                               ...prev,
                               priceRange: [prev.priceRange[0], parseInt(e.target.value)]
                             }))}
