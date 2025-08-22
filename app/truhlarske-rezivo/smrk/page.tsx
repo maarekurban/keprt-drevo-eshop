@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ChevronRightIcon, HomeIcon, StarIcon, ShoppingCartIcon, TruckIcon, CheckIcon, PhoneIcon } from '@heroicons/react/24/outline'
+import { ChevronRightIcon, HomeIcon, StarIcon, TruckIcon, CheckIcon } from '@heroicons/react/24/outline'
 
 export default function SmrkPage() {
   const [selectedThickness, setSelectedThickness] = useState(30)
@@ -20,17 +20,8 @@ export default function SmrkPage() {
   const thicknessOptions = [30, 40, 50, 60]
   const lengthOptions = [3, 4, 5]
 
-  // Ceník podle tloušťky a délky (cena za m³)
-  const priceTable: any = {
-    30: { 3: 12500, 4: 12800, 5: 13100 },
-    40: { 3: 13200, 4: 13500, 5: 13800 },
-    50: { 3: 13900, 4: 14200, 5: 14500 },
-    60: { 3: 14600, 4: 14900, 5: 15200 }
-  }
-
-  const currentPrice = priceTable[selectedThickness][selectedLength]
-  const volume = selectedLength * 0.1 * 0.1 // zjednodušený výpočet objemu
-  const totalPrice = currentPrice * volume
+  // Zjednodušený ceník - pevná cena
+  const basePrice = 12500 // cena za m³
 
   const features = [
     'Sušené neomítané řezivo',
@@ -129,7 +120,7 @@ export default function SmrkPage() {
               <div className="mb-4">
                 <img
                   src={images[selectedImage]}
-                  alt="Smrk - truhlářské řezivo"
+                  alt="Smrkové řezivo"
                   className="w-full h-96 object-cover rounded-xl"
                 />
               </div>
@@ -156,10 +147,10 @@ export default function SmrkPage() {
             <div>
               <div className="mb-6">
                 <h1 className="text-3xl font-bold text-forest-800 mb-2">
-                  Smrk - truhlářské řezivo
+                  Smrkové řezivo
                 </h1>
                 <p className="text-forest-600 mb-4">
-                  Kvalitní sušené neomítané řezivo ve dřevině smrk. Ideální pro výrobu nábytku a stavebně-truhlářských výrobků.
+                  Kvalitní sušené neomítané řezivo pro truhlářské účely.
                 </p>
                 
                 {/* Rating */}
@@ -174,26 +165,34 @@ export default function SmrkPage() {
                       />
                     ))}
                   </div>
-                  <span className="text-forest-600">(89 recenzí)</span>
+                  <span className="text-forest-600">(127 recenzí)</span>
                 </div>
               </div>
 
-              {/* Price Calculator */}
-              <div className="mb-8 bg-forest-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-forest-800 mb-4">Výběr parametrů</h3>
-                
-                {/* Thickness Selection */}
-                <div className="mb-6">
-                  <label className="block text-forest-700 font-medium mb-3">Tloušťka:</label>
-                  <div className="grid grid-cols-4 gap-2">
+              {/* Price */}
+              <div className="mb-6">
+                <div className="flex items-center space-x-4">
+                  <span className="text-3xl font-bold text-forest-800">{basePrice.toLocaleString()} Kč</span>
+                  <span className="text-xl text-gray-500">za m³</span>
+                </div>
+                <p className="text-forest-600 mt-2">Cena včetně DPH</p>
+              </div>
+
+              {/* Configuration */}
+              <div className="mb-8 space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-forest-700 mb-2">
+                    Tloušťka
+                  </label>
+                  <div className="flex space-x-2">
                     {thicknessOptions.map((thickness) => (
                       <button
                         key={thickness}
                         onClick={() => setSelectedThickness(thickness)}
-                        className={`py-3 px-4 rounded-lg font-medium transition-colors ${
+                        className={`px-4 py-2 rounded-lg border transition-colors ${
                           selectedThickness === thickness
-                            ? 'bg-wood-500 text-white'
-                            : 'bg-white text-forest-600 border border-forest-200 hover:border-wood-300'
+                            ? 'bg-wood-500 text-white border-wood-500'
+                            : 'bg-white text-forest-700 border-forest-300 hover:border-wood-500'
                         }`}
                       >
                         {thickness} mm
@@ -202,18 +201,19 @@ export default function SmrkPage() {
                   </div>
                 </div>
 
-                {/* Length Selection */}
-                <div className="mb-6">
-                  <label className="block text-forest-700 font-medium mb-3">Délka:</label>
-                  <div className="grid grid-cols-3 gap-2">
+                <div>
+                  <label className="block text-sm font-medium text-forest-700 mb-2">
+                    Délka
+                  </label>
+                  <div className="flex space-x-2">
                     {lengthOptions.map((length) => (
                       <button
                         key={length}
                         onClick={() => setSelectedLength(length)}
-                        className={`py-3 px-4 rounded-lg font-medium transition-colors ${
+                        className={`px-4 py-2 rounded-lg border transition-colors ${
                           selectedLength === length
-                            ? 'bg-wood-500 text-white'
-                            : 'bg-white text-forest-600 border border-forest-200 hover:border-wood-300'
+                            ? 'bg-wood-500 text-white border-wood-500'
+                            : 'bg-white text-forest-700 border-forest-300 hover:border-wood-500'
                         }`}
                       >
                         {length} m
@@ -221,34 +221,19 @@ export default function SmrkPage() {
                     ))}
                   </div>
                 </div>
-
-                {/* Price Display */}
-                <div className="border-t border-forest-200 pt-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-forest-600">Cena za m³:</span>
-                    <span className="text-xl font-bold text-forest-800">{currentPrice.toLocaleString()} Kč</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-forest-600">Celková cena:</span>
-                    <span className="text-2xl font-bold text-wood-600">{totalPrice.toLocaleString()} Kč</span>
-                  </div>
-                  <p className="text-sm text-forest-500 mt-2">Cena bez DPH</p>
-                </div>
               </div>
 
-              {/* Add to Cart */}
-              <div className="space-y-3 mb-8">
+              {/* Action Buttons */}
+              <div className="space-y-3">
                 <button className="w-full bg-wood-500 hover:bg-wood-600 text-white font-semibold py-4 px-6 rounded-lg transition-colors flex items-center justify-center space-x-2">
-                  <ShoppingCartIcon className="h-6 w-6" />
-                  <span>Přidat do košíku - {totalPrice.toLocaleString()} Kč</span>
+                  <span>Poptat řezivo</span>
                 </button>
                 
                 <a
                   href="tel:+420732443827"
                   className="w-full bg-forest-600 hover:bg-forest-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors flex items-center justify-center space-x-2"
                 >
-                  <PhoneIcon className="h-6 w-6" />
-                  <span>Objednat telefonicky</span>
+                  <span>Zavolejte nám</span>
                 </a>
               </div>
             </div>
@@ -265,7 +250,7 @@ export default function SmrkPage() {
               onClick={() => setActiveTab('specifications')}
               className={`px-6 py-3 font-medium transition-colors rounded-lg ${
                 activeTab === 'specifications'
-                  ? 'bg-[#dda15e] text-white'
+                  ? 'bg-wood-500 text-white'
                   : 'text-forest-600 hover:text-forest-800'
               }`}
             >
@@ -275,7 +260,7 @@ export default function SmrkPage() {
               onClick={() => setActiveTab('features')}
               className={`px-6 py-3 font-medium transition-colors rounded-lg ${
                 activeTab === 'features'
-                  ? 'bg-[#dda15e] text-white'
+                  ? 'bg-wood-500 text-white'
                   : 'text-forest-600 hover:text-forest-800'
               }`}
             >
@@ -285,7 +270,7 @@ export default function SmrkPage() {
               onClick={() => setActiveTab('delivery')}
               className={`px-6 py-3 font-medium transition-colors rounded-lg ${
                 activeTab === 'delivery'
-                  ? 'bg-[#dda15e] text-white'
+                  ? 'bg-wood-500 text-white'
                   : 'text-forest-600 hover:text-forest-800'
               }`}
             >
@@ -295,7 +280,7 @@ export default function SmrkPage() {
               onClick={() => setActiveTab('reviews')}
               className={`px-6 py-3 font-medium transition-colors rounded-lg ${
                 activeTab === 'reviews'
-                  ? 'bg-[#dda15e] text-white'
+                  ? 'bg-wood-500 text-white'
                   : 'text-forest-600 hover:text-forest-800'
               }`}
             >
@@ -334,11 +319,11 @@ export default function SmrkPage() {
                       </div>
                       <div className="flex items-center space-x-2">
                         <CheckIcon className="h-5 w-5 text-green-500" />
-                        <span className="text-forest-600">Spárovky a lišty</span>
+                        <span className="text-forest-600">Stavební konstrukce</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <CheckIcon className="h-5 w-5 text-green-500" />
-                        <span className="text-forest-600">Podlahy a palubky</span>
+                        <span className="text-forest-600">Interiérové obklady</span>
                       </div>
                     </div>
                   </div>
@@ -369,7 +354,7 @@ export default function SmrkPage() {
                 <div className="space-y-3 text-forest-600">
                   <div className="flex items-center space-x-2">
                     <CheckIcon className="h-5 w-5 text-green-500" />
-                    <span>Doprava po celé ČR kontejnerovou autodopravou</span>
+                    <span>Doprava po celé ČR</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <CheckIcon className="h-5 w-5 text-green-500" />
@@ -418,7 +403,7 @@ export default function SmrkPage() {
       </section>
 
       {/* Related Products */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-forest-50">
         <div className="container-max">
           <h2 className="text-2xl font-bold text-forest-800 mb-8 text-center">Související produkty</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
