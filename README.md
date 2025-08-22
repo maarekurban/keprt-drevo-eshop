@@ -155,3 +155,4 @@ MIT License - viz LICENSE soubor
 Pro dotazy ohledně implementace nebo funkcí kontaktujte vývojový tým.
 
 # Updated Fri Aug 22 19:09:48 CEST 2025
+# Force deployment Fri Aug 22 19:17:57 CEST 2025
