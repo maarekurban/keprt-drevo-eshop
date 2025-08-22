@@ -46,7 +46,7 @@ export default function FilterSidebar({
   }
 
   const toggleFilter = (category: string, value: string) => {
-    setSelectedFilters(prev => ({
+    setSelectedFilters((prev: typeof selectedFilters) => ({
       ...prev,
       [category]: prev[category as keyof typeof prev].includes(value)
         ? prev[category as keyof typeof prev].filter(item => item !== value)
