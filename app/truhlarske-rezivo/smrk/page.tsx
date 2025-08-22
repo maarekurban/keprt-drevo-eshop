@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { ChevronRightIcon, HomeIcon, StarIcon, ShoppingCartIcon, TruckIcon, CheckIcon, PhoneIcon } from '@heroicons/react/24/outline'
 
 export default function SmrkPage() {
-  const [selectedThickness, setSelectedThickness] = useState<30 | 40 | 50 | 60>(30)
-  const [selectedLength, setSelectedLength] = useState<3 | 4 | 5>(3)
+  const [selectedThickness, setSelectedThickness] = useState(30)
+  const [selectedLength, setSelectedLength] = useState(3)
   const [selectedImage, setSelectedImage] = useState(0)
   const [activeTab, setActiveTab] = useState('specifications')
 
@@ -17,11 +17,11 @@ export default function SmrkPage() {
     '/rezivo.png'
   ]
 
-  const thicknessOptions = [30, 40, 50, 60] as const
-  const lengthOptions = [3, 4, 5] as const
+  const thicknessOptions = [30, 40, 50, 60]
+  const lengthOptions = [3, 4, 5]
 
   // Ceník podle tloušťky a délky (cena za m³)
-  const priceTable: Record<30 | 40 | 50 | 60, Record<3 | 4 | 5, number>> = {
+  const priceTable: any = {
     30: { 3: 12500, 4: 12800, 5: 13100 },
     40: { 3: 13200, 4: 13500, 5: 13800 },
     50: { 3: 13900, 4: 14200, 5: 14500 },
