@@ -13,13 +13,6 @@ interface WoodType {
 
 const woodTypes: WoodType[] = [
   {
-    id: 'smrk',
-    name: 'Smrk',
-    description: 'Truhlářské řezivo neomítané ve dřevině smrk. Kvalitní sušené řezivo pro výrobu nábytku a stavebně-truhlářských výrobků.',
-    image: '/rezivo.png',
-    href: '/truhlarske-rezivo/smrk'
-  },
-  {
     id: 'borovice',
     name: 'Borovice',
     description: 'Truhlářské řezivo neomítané ve dřevině borovice. Lehké a pevné dřevo vhodné pro interiérové použití.',
